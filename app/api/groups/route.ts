@@ -31,6 +31,7 @@ export async function GET(req: Request) {
 
     return NextResponse.json({ groups: formatted })
   } catch (err) {
+    console.log(err)
     return NextResponse.json({ error: 'Failed to fetch groups' }, { status: 500 })
   }
 }

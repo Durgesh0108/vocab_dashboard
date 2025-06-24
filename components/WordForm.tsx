@@ -2,7 +2,7 @@
 
 import { toast } from "react-hot-toast";
 import { Textarea } from "@/components/ui/textarea";
-import { fetchSimilarAndOppositeWords } from "@/lib/utils";
+// import { fetchSimilarAndOppositeWords } from "@/lib/utils";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,7 +29,6 @@ export function WordFormInline({ onWordAdded }: { onWordAdded: () => void }) {
 	// 	setExample(data.example || "");
 	// 	setAiLoading(false);
 	// };
-	
 
 	const handleFetchAI = async () => {
 		if (!text) return;
@@ -40,7 +39,6 @@ export function WordFormInline({ onWordAdded }: { onWordAdded: () => void }) {
 		setExample(data.example || "");
 		setAiLoading(false);
 	};
-
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();

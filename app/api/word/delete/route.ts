@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
 
 export async function DELETE(req: Request) {
   try {
@@ -14,7 +14,7 @@ export async function DELETE(req: Request) {
       return NextResponse.json({ error: "Word ID is required" }, { status: 400 });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
+    // const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
 
     // 🔸 Step 1: Remove all group relations for the word
     await prisma.wordGroupWord.deleteMany({

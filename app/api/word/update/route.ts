@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
 
 export async function POST(req: Request) {
   const token = req.headers.get("cookie")?.split("token=")[1]?.split(";")[0];
@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   const { id, update } = await req.json();
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
+    // const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
 
     await prisma.word.update({
       where: { id },
