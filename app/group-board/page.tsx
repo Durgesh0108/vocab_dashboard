@@ -1,11 +1,12 @@
-import GroupBoard from "@/components/GroupBoard";
-import Image from "next/image";
+"use client";
 
-export default function Home() {
-  return (
+import GroupBoard from "@/components/GroupBoard";
+
+export default function GroupBoardPage() {
+	return (
 		<div>
 			<h1 className="text-2xl font-bold mb-4 px-4">Group Board</h1>
 			<GroupBoard />
 		</div>
-  );
+	);
 }
