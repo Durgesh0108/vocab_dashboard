@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-hot-toast";
-import { fetchSimilarAndOppositeWords } from "@/lib/utils";
+import { fetchGeminiWordDetails } from "@/lib/gemini";
+// import { fetchSimilarAndOppositeWords } from "@/lib/utils";
 
 type Word = {
 	id: string;
@@ -42,10 +43,14 @@ export function WordEditModal({
 	const handleFetchAI = async () => {
 		if (!text) return;
 		setAiLoading(true);
-		const data = await fetchSimilarAndOppositeWords(text);
+		const data = await fetchGeminiWordDetails(text);
+		setMeaning(data.meaning || "");
 		setSynonyms(data.synonyms || []);
 		setAntonyms(data.antonyms || []);
 		setExample(data.example || "");
+		setPrefix(data.prefix || "");
+		setSuffix(data.suffix || "");
+		setRoot(data.root || "");
 		setAiLoading(false);
 	};
 

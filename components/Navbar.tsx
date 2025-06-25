@@ -2,9 +2,21 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
 	const router = useRouter();
+	const [darkMode, setDarkMode] = useState(false);
+
+	useEffect(() => {
+		const saved = localStorage.getItem("darkMode");
+		if (saved === "true") setDarkMode(true);
+	}, []);
+
+	useEffect(() => {
+		localStorage.setItem("darkMode", String(darkMode));
+		document.documentElement.classList.toggle("dark", darkMode);
+	}, [darkMode]);
 
 	const handleLogout = () => {
 		document.cookie = "token=; Max-Age=0; path=/";
@@ -38,6 +50,9 @@ export default function Navbar() {
 						className="bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-100"
 					>
 						Logout
+					</button>
+					<button onClick={() => setDarkMode(!darkMode)}>
+						{darkMode ? "☀️ Light" : "🌙 Dark"}
 					</button>
 				</div>
 			</div>

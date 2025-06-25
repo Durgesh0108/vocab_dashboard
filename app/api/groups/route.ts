@@ -20,13 +20,13 @@ export async function GET(req: Request) {
           },
         },
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { label: 'asc' },
     })
 
     // Flatten result to return group with its words directly
     const formatted = groups.map(group => ({
       ...group,
-      words: group.words.map(w => w.word),
+      words: group.words.map(w => w.word), // now words is Word[]
     }))
 
     return NextResponse.json({ groups: formatted })

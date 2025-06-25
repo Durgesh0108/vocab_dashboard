@@ -34,9 +34,13 @@ export function WordFormInline({ onWordAdded }: { onWordAdded: () => void }) {
 		if (!text) return;
 		setAiLoading(true);
 		const data = await fetchGeminiWordDetails(text);
+		setMeaning(data.meaning || "");
 		setSynonyms(data.synonyms || []);
 		setAntonyms(data.antonyms || []);
 		setExample(data.example || "");
+		setPrefix(data.prefix || "");
+		setSuffix(data.suffix || "");
+		setRoot(data.root || "");
 		setAiLoading(false);
 	};
 
@@ -94,6 +98,11 @@ export function WordFormInline({ onWordAdded }: { onWordAdded: () => void }) {
 				placeholder="Meaning"
 				required
 			/>
+			{meaning && (
+				<div className="text-sm text-green-700">
+					AI meaning: {meaning}
+				</div>
+			)}
 
 			<Button
 				type="button"
