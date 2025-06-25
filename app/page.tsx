@@ -21,7 +21,7 @@ import FlashcardChunkGame from "@/components/games/FlashcardChunkGame";
 const GAME_TABS = [
 	{ label: "🃏 Flashcards", id: "flashcards" },
 	{ label: "🔀 Shuffle", id: "shuffle" },
-	{ label: "📦 Arrangement", id: "arrangement" },
+	// { label: "📦 Arrangement", id: "arrangement" },
 ];
 
 type Word = {
