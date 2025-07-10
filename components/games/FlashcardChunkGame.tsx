@@ -137,6 +137,7 @@ export default function FlashcardChunkGame() {
 			setGroups(data);
 			setActiveGroup(0);
 		} catch (err) {
+			console.log(err)
 			toast.error("Failed to load flashcard groups");
 		}
 	};

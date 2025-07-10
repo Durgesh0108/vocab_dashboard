@@ -12,7 +12,7 @@
 // Step 1: Update `Home` component to support mode switching and tab rendering
 
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import GroupBoard from "@/components/GroupBoard";
 // import FlashcardGame from "@/components/games/FlashcardGame";
 import ShuffleGame from "@/components/games/ShuffleGame";
@@ -37,16 +37,17 @@ type Word = {
 export default function Home() {
 	const [exploreMode, setExploreMode] = useState(false);
 	const [activeGame, setActiveGame] = useState("shuffle");
-	const [words, setWords] = useState<Word[]>([]);
+	// const [words, setWords] = useState<Word[]>([]);
 
-	useEffect(() => {
-		const fetchWords = async () => {
-			const res = await fetch("/api/word/get");
-			const data = await res.json();
-			setWords(data.words || []);
-		};
-		if (exploreMode) fetchWords();
-	}, [exploreMode]);
+	// useEffect(() => {
+	// 	const fetchWords = async () => {
+	// 		const res = await fetch("/api/word/get");
+	// 		const data = await res.json();
+	// 		setWords(data.words || []);
+	// 	};
+	// 	if (exploreMode) fetchWords();
+	// }, [exploreMode]);
+
 
 	return (
 		<div>

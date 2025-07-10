@@ -9,6 +9,7 @@ export async function auth() {
     const user = jwt.verify(token, process.env.JWT_SECRET!);
     return user as { id: string; email: string };
   } catch (err) {
+    console.log(err)
     return null;
   }
 }
