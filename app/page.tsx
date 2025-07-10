@@ -17,6 +17,7 @@ import GroupBoard from "@/components/GroupBoard";
 // import FlashcardGame from "@/components/games/FlashcardGame";
 import ShuffleGame from "@/components/games/ShuffleGame";
 import FlashcardChunkGame from "@/components/games/FlashcardChunkGame";
+// import UploadForm from "@/components/UploadForm";
 
 const GAME_TABS = [
 	{ label: "🃏 Flashcards", id: "flashcards" },
@@ -49,10 +50,10 @@ export default function Home() {
 
 	return (
 		<div>
+			{/* <UploadForm /> */}
 			<h1 className="text-2xl font-bold mb-4 px-4">
 				{exploreMode ? "Explore Mode 🎮" : "Group Board"}
 			</h1>
-
 			<div className="flex justify-between px-4 mb-4">
 				<button
 					onClick={() => setExploreMode((prev) => !prev)}
@@ -63,7 +64,6 @@ export default function Home() {
 						: "🎮 Enter Explore Mode"}
 				</button>
 			</div>
-
 			{exploreMode ? (
 				<div className="px-4">
 					<div className="flex gap-2 mb-4 border-b">
@@ -83,9 +83,7 @@ export default function Home() {
 					</div>
 
 					<div>
-						{activeGame === "flashcards" && (
-							<FlashcardChunkGame words={words} />
-						)}
+						{activeGame === "flashcards" && <FlashcardChunkGame />}
 						{activeGame === "shuffle" && <ShuffleGame />}
 						{/* Add future game conditionals here */}
 					</div>

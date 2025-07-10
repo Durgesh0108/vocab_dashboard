@@ -1,3 +1,79 @@
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "mongodb"
+//   url      = env("DATABASE_URL")
+// }
+
+// model User {
+//   id             String           @id @default(auto()) @map("_id") @db.ObjectId
+//   email          String           @unique
+//   password       String
+//   words          Word[]
+//   wordGroups     WordGroup[]
+//   FlashcardGroup FlashcardGroup[]
+// }
+
+// model Word {
+//   id                 String               @id @default(auto()) @map("_id") @db.ObjectId
+//   userId             String               @db.ObjectId
+//   user               User                 @relation(fields: [userId], references: [id])
+//   text               String
+//   meaning            String
+//   synonyms           String[]
+//   antonyms           String[]
+//   example            String
+//   prefix             String?
+//   suffix             String?
+//   root               String?
+//   groups             WordGroupWord[]      @relation("WordToGroup")
+//   createdAt          DateTime             @default(now())
+//   FlashcardGroupWord FlashcardGroupWord[]
+// }
+
+// model WordGroup {
+//   id        String          @id @default(auto()) @map("_id") @db.ObjectId
+//   userId    String          @db.ObjectId
+//   user      User            @relation(fields: [userId], references: [id])
+//   label     String
+//   meaning   String
+//   words     WordGroupWord[] @relation("GroupToWord")
+//   order     Int             @default(0)
+//   createdAt DateTime        @default(now())
+// }
+
+// model WordGroupWord {
+//   id        String    @id @default(auto()) @map("_id") @db.ObjectId
+//   word      Word      @relation(fields: [wordId], references: [id], name: "WordToGroup")
+//   wordId    String    @db.ObjectId
+//   group     WordGroup @relation(fields: [groupId], references: [id], name: "GroupToWord")
+//   groupId   String    @db.ObjectId
+//   order     Int       @default(0)
+//   createdAt DateTime  @default(now())
+// }
+
+// model FlashcardGroup {
+//   id        String               @id @default(auto()) @map("_id") @db.ObjectId
+//   userId    String
+//   user      User                 @relation(fields: [userId], references: [id])
+//   label     String
+//   order     Int                  @default(0)
+//   words     FlashcardGroupWord[] @relation("FlashcardWordRelation")
+//   createdAt DateTime             @default(now())
+// }
+
+// model FlashcardGroupWord {
+//   id        String         @id @default(auto()) @map("_id") @db.ObjectId
+//   group     FlashcardGroup @relation(fields: [groupId], references: [id], name: "FlashcardWordRelation")
+//   groupId   String
+//   word      Word           @relation(fields: [wordId], references: [id])
+//   wordId    String
+//   order     Int            @default(0)
+//   createdAt DateTime       @default(now())
+// }
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,33 +84,35 @@ datasource db {
 }
 
 model User {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  email      String      @unique
-  password   String
-  words      Word[]
-  wordGroups WordGroup[]
+  id              String           @id @default(auto()) @map("_id") @db.ObjectId
+  email           String           @unique
+  password        String
+  words           Word[]
+  wordGroups      WordGroup[]
+  flashcardGroups FlashcardGroup[] // ✅ renamed to camelCase
 }
 
 model Word {
-  id        String          @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String          @db.ObjectId
-  user      User            @relation(fields: [userId], references: [id])
-  text      String
-  meaning   String
-  synonyms  String[]
-  antonyms  String[]
-  example   String
-  prefix    String?
-  suffix    String?
-  root      String?
-  groups    WordGroupWord[] @relation("WordToGroup")
-  createdAt DateTime        @default(now())
+  id                  String               @id @default(auto()) @map("_id") @db.ObjectId
+  userId              String?              @db.ObjectId
+  user                User?                @relation(fields: [userId], references: [id])
+  text                String
+  meaning             String
+  synonyms            String[]
+  antonyms            String[]
+  example             String
+  prefix              String?
+  suffix              String?
+  root                String?
+  groups              WordGroupWord[]      @relation("WordToGroup")
+  flashcardGroupWords FlashcardGroupWord[] // ✅ back relation for FlashcardGroupWord
+  createdAt           DateTime             @default(now())
 }
 
 model WordGroup {
   id        String          @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String          @db.ObjectId
-  user      User            @relation(fields: [userId], references: [id])
+  userId    String?         @db.ObjectId
+  user      User?           @relation(fields: [userId], references: [id])
   label     String
   meaning   String
   words     WordGroupWord[] @relation("GroupToWord")
@@ -50,4 +128,25 @@ model WordGroupWord {
   groupId   String    @db.ObjectId
   order     Int       @default(0)
   createdAt DateTime  @default(now())
+}
+
+model FlashcardGroup {
+  id        String               @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String?              @db.ObjectId
+  user      User?                @relation(fields: [userId], references: [id])
+  label     String
+  order     Int                  @default(0)
+  words     FlashcardGroupWord[] @relation("FlashcardWordRelation")
+  createdAt DateTime             @default(now())
+}
+
+model FlashcardGroupWord {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  groupId   String   @db.ObjectId
+  wordId    String   @db.ObjectId
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  group FlashcardGroup @relation(fields: [groupId], references: [id], name: "FlashcardWordRelation")
+  word  Word           @relation(fields: [wordId], references: [id])
 }
