@@ -25,14 +25,14 @@ const GAME_TABS = [
 	// { label: "📦 Arrangement", id: "arrangement" },
 ];
 
-type Word = {
-	id: string;
-	text: string;
-	meaning: string;
-	example?: string;
-	synonyms?: string[];
-	antonyms?: string[];
-};
+// type Word = {
+// 	id: string;
+// 	text: string;
+// 	meaning: string;
+// 	example?: string;
+// 	synonyms?: string[];
+// 	antonyms?: string[];
+// };
 
 export default function Home() {
 	const [exploreMode, setExploreMode] = useState(false);
